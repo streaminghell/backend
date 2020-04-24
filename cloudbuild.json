@@ -5,7 +5,7 @@
       "args": [
         "build",
         "-t",
-        "eu.gcr.io/streaminghell/api",
+        "eu.gcr.io/streaming-hell-275207/api",
         "."
       ]
     },
@@ -13,7 +13,7 @@
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "push",
-        "eu.gcr.io/streaminghell/api"
+        "eu.gcr.io/streaming-hell-275207/api"
       ]
     },
     {
@@ -23,7 +23,7 @@
         "deploy",
         "api",
         "--image",
-        "eu.gcr.io/streaminghell/api",
+        "eu.gcr.io/streaming-hell-275207/api",
         "--region",
         "europe-north1",
         "--platform",
@@ -32,6 +32,6 @@
     }
   ],
   "images": [
-    "eu.gcr.io/streaminghell/api"
+    "eu.gcr.io/streaming-hell-275207/api"
   ]
 }
