@@ -1,18 +1,18 @@
 {
-  "name": "@streaming-hell/streaming-hell",
+  "name": "@streaming-hell/api",
   "version": "2.6.0",
-  "description": "Telegram bot for share music with anyone no matter the platform",
+  "description": "Streaming Hell project API - backend for all services",
   "keywords": [
     "telegram",
     "telegram bot",
     "telegraf"
   ],
-  "homepage": "https://github.com/streaming-hell/streaming-hell#readme",
+  "homepage": "https://github.com/streaming-hell/api#readme",
   "bugs": {
-    "url": "https://github.com/streaming-hell/streaming-hell/issues",
-    "email": "aleksandr@bukhalo.com"
+    "url": "https://github.com/streaming-hell/api/issues",
+    "email": "a@bukhalo.com"
   },
-  "author": "Aleksandr Bukhalo (aleksandr@bukhalo.com)",
+  "author": "Aleksandr Bukhalo (a@bukhalo.com)",
   "license": "GPL-3.0",
   "scripts": {
     "prebuild": "rimraf dist",
