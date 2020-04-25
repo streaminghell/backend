@@ -1,6 +1,6 @@
 {
   "name": "@streaming-hell/api",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Streaming Hell project API - backend for all services",
   "keywords": [
     "telegram",
@@ -50,7 +50,6 @@
     "helmet": "3.22.0",
     "lodash": "4.17.15",
     "mongoose": "5.9.7",
-    "nestjs-telegraf": "1.1.0",
     "node-vk-bot-api": "3.3.3",
     "passport": "0.4.1",
     "passport-jwt": "4.0.0",

@@ -7,7 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ProvidersModule } from './providers/providers.module';
 import { LinksModule } from './links/links.module';
-import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
 
 @Module({
   imports: [
@@ -21,7 +20,6 @@ import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
     UsersModule,
     ProvidersModule,
     LinksModule,
-    TelegramBotModule,
   ],
 })
 export class AppModule {}
