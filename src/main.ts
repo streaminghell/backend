@@ -22,6 +22,7 @@ async function bootstrap() {
     credentials: true,
   });
   app.use(
+    // @ts-ignore
     helmet({
       contentSecurityPolicy: false,
     }),
