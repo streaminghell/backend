@@ -1,19 +1,14 @@
 {
   "name": "@streaming-hell/api",
   "version": "2.6.1",
-  "description": "Streaming Hell project API - backend for all services",
-  "keywords": [
-    "telegram",
-    "telegram bot",
-    "telegraf"
-  ],
+  "description": "Streaming Hell API",
   "homepage": "https://github.com/streaming-hell/api#readme",
   "bugs": {
     "url": "https://github.com/streaming-hell/api/issues",
     "email": "a@bukhalo.com"
   },
-  "author": "Aleksandr Bukhalo (a@bukhalo.com)",
-  "license": "GPL-3.0",
+  "author": "Streaming Hell nonprofit organization.",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
