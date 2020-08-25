@@ -10,12 +10,22 @@ async function bootstrap() {
   app.setGlobalPrefix('v1');
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
+  const configService = app.get('ConfigService');
+
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: [
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'http://localhost:3010',
+      'http://127.0.0.1:3010',
+    ],
     credentials: true,
   });
-  // @ts-ignore
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+    }),
+  );
 
   /**
    * Configure Swagger docs
@@ -29,6 +39,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('v1', app, document);
 
-  await app.listen(4000);
+  await app.listen(configService.get('app.port'));
 }
 bootstrap();
