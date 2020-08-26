@@ -2,6 +2,7 @@ import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard, TelegramAuthGuard } from './guards';
+import { Request } from 'express';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -19,7 +20,7 @@ export class AuthController {
 
   @UseGuards(TelegramAuthGuard)
   @Get('telegram')
-  async telegram(@Res() res) {
-    res.redirect('https://streaming-hell.com/dashboard');
+  async telegram(@Req() req: Request): Promise<any> {
+    return this.authService.login(req.user);
   }
 }

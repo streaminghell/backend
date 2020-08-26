@@ -9,6 +9,7 @@ export const validationSchema = object({
   MONGODB_URI: string().required(),
   JWT_SECRET: string().required(),
   ODESLI_API_KEY: string().required(),
+  TELEGRAM_BOT_TOKEN: string().required(),
 });
 
 export const validationOptions: ValidationOptions = {
