@@ -75,5 +75,6 @@ export class ShazamService {
         // spotifyLink: isURL(spotifyLink) ? appleMusicLink : null,
       };
     }
+    return null;
   }
 }
