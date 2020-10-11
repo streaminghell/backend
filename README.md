@@ -1,13 +1,20 @@
 # Streaming Hell
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
-Open Source services for musical streaming platforms
+Search music between streaming services
+
+Site - [streaming-hell.com](https://streaming-hell.com)
+
+Telegram bot – [@streaminghell_bot](https://telegram.me/streaminghell_bot)
 
 ## Install
 WIP
 
 ## Usage
 WIP
+
+## Support
+If you have questions or suggestions, you can write to us in [Telegram chat](https://t.me/joinchat/BMYz7xyEwYAWalGm4tG48w) (Russian). If you find a bug, you can create a [issue](https://github.com/streaming-hell/telegram-bot/issues/new) please.
 
 ## Contributors
 
