@@ -44,10 +44,6 @@ export class LinksService {
       return BUY_PLATFORMS.includes(link.platform);
     });
 
-    console.log(listenLinks);
-
-    console.log(Platform['yandex']);
-
     const platformName = (platform: string) => {
       const filteredObject = Object.keys(Platform).filter(key =>
         platform === Platform[key] ? key : null,
@@ -133,6 +129,7 @@ export class LinksService {
     rawUrl: string,
     userCountry: string,
   ): Promise<LinksByUrl> {
+    console.log(rawUrl);
     const url = await this.prepareUrl(rawUrl);
 
     const odesli = await this.odesliService
@@ -159,7 +156,9 @@ export class LinksService {
     const vkLink = (): Link => {
       return {
         platform: Platform.VK,
-        url: this.vkService.getSearchLink(url),
+        url: this.vkService.getSearchLink(
+          `${odesliLinks[0].entity.artistName} - ${odesliLinks[0].entity.title}`,
+        ),
         entity: {
           id: '',
           title: odesliLinks[0].entity.title,
