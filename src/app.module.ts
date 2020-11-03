@@ -19,9 +19,11 @@ import {
   validationOptions,
   validationSchema,
 } from './core/configs';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
+    LoggerModule.forRoot(),
     ConfigModule.forRoot({
       load: [app, sentryModule, graphQLModule, mongooseModule, telegrafModule],
       validationOptions,
