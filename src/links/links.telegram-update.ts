@@ -73,8 +73,11 @@ export class LinksTelegramUpdate {
     if (this.linksService.isSupportedLink(urls[0])) {
       try {
         const data = await this.linksService.findLinksByUrls(ctx, urls);
-        await this.linksService.replySearchedSongInfo(ctx, data);
-        await this.linksService.replyFindedLinks(ctx, data);
+        console.log(data);
+        const test = await this.linksService.replySearchedSongInfo(ctx, data);
+        console.log(test);
+        const test2 = await this.linksService.replyFindedLinks(ctx, data);
+        console.log(test2);
       } catch (e) {
         this.logger.error(e);
         next();

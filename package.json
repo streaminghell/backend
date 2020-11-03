@@ -1,6 +1,6 @@
 {
   "name": "streaming-hell",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Search music between streaming services",
   "homepage": "https://github.com/evilsprut/streaming-hell#readme",
   "bugs": {
@@ -37,6 +37,7 @@
     "@nestjs/swagger": "4.6.1",
     "@ntegral/nestjs-sentry": "1.0.4",
     "apollo-server-express": "2.19.0",
+    "applicationinsights": "^1.8.7",
     "graphql": "15.4.0",
     "graphql-tools": "7.0.1",
     "graphql-type-json": "0.3.2",

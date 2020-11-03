@@ -1,3 +1,22 @@
+import 'dotenv/config';
+import * as appInsights from 'applicationinsights';
+appInsights
+  .setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
+  .setAutoDependencyCorrelation(true)
+  .setAutoCollectRequests(true)
+  .setAutoCollectPerformance(true, true)
+  .setAutoCollectExceptions(true)
+  .setAutoCollectDependencies(true)
+  .setAutoCollectConsole(true)
+  .setUseDiskRetryCaching(true)
+  .setSendLiveMetrics(true)
+  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+  .start();
+
+appInsights.defaultClient.commonProperties = {
+  environment: process.env.NODE_ENV,
+};
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -8,6 +27,7 @@ import { TelegrafMongoSession } from 'telegraf-session-mongodb';
 import { AppModule } from './app.module';
 
 const bootstrap = async () => {
+  const bootstrapStartTime = Date.now();
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
@@ -60,7 +80,13 @@ const bootstrap = async () => {
   telegraf.use(i18n.middleware());
   app.use(telegraf.webhookCallback('/telegram-bot-webhook'));
 
-  await app.listen(configService.get('app.port'));
+  await app.listen(configService.get('app.port')).then(() => {
+    const bootstrapEndTime = Date.now() - bootstrapStartTime;
+    appInsights.defaultClient.trackMetric({
+      name: 'server startup time',
+      value: bootstrapEndTime,
+    });
+  });
 };
 
 bootstrap();
