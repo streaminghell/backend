@@ -47,6 +47,7 @@ export class LinksTelegramUpdate {
 
   @On('message')
   async linksInGroup(ctx: Context, next): Promise<void> {
+    console.log(ctx.message);
     if (ctx.message.chat.type === 'private') {
       next();
       return;
