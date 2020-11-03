@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Context, On } from 'nestjs-telegraf';
 import { LinksService } from './links.service';
 
@@ -17,7 +17,8 @@ export class LinksTelegramUpdate {
 
     /** Check message text exist in Telegram update */
     if (!message.text) {
-      throw new HttpException('No text in message', HttpStatus.BAD_REQUEST);
+      next();
+      return;
     }
 
     /** Check streaming links exists in message */
@@ -47,6 +48,12 @@ export class LinksTelegramUpdate {
   @On('message')
   async linksInGroup(ctx: Context, next): Promise<void> {
     if (ctx.message.chat.type === 'private') {
+      next();
+      return;
+    }
+
+    /** Check message text exist in Telegram update */
+    if (!ctx.message.text) {
       next();
       return;
     }
