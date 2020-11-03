@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Command } from 'nestjs-telegraf';
+import { Context } from 'nestjs-telegraf';
 
 @Injectable()
 export class ServicesService {
-  @Command('services')
-  async servicesCommand(ctx) {
+  async sendSupportedServicesMessage(ctx: Context): Promise<void> {
     await ctx.replyWithMarkdown(ctx.i18n.t('SERVICES_COMMAND_REPLY'));
   }
 }

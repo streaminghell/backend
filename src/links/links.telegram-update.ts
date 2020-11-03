@@ -6,14 +6,14 @@ import { LinksService } from './links.service';
 export class LinksTelegramUpdate {
   constructor(private readonly linksService: LinksService) {}
 
-  @On(['message'])
-  async onMessage(ctx: Context, next) {
+  @On('message')
+  async linksInPm(ctx: Context, next): Promise<void> {
     const { message } = ctx;
-    /**
-     * Make sure it's a PM.
-     * @see https://github.com/streaming-hell/streaming-hell/issues/9#issuecomment-573243323
-     */
-    if (message?.chat?.type !== 'private') return;
+
+    if (message?.chat?.type !== 'private') {
+      next();
+      return;
+    }
 
     /** Check message text exist in Telegram update */
     if (!message.text) {
@@ -33,7 +33,45 @@ export class LinksTelegramUpdate {
     // @ts-ignore
     ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
 
-    await this.linksService.findLinksByUrls(ctx, urls);
+    try {
+      const data = await this.linksService.findLinksByUrls(ctx, urls);
+      await this.linksService.replySearchedSongInfo(ctx, data);
+      await this.linksService.replyFindedLinks(ctx, data);
+    } catch (e) {
+      await this.linksService.songLinksNotFound(ctx);
+    }
+
+
+    next();
+  }
+
+  @On('message')
+  async linksInGroup(ctx: Context, next): Promise<void> {
+    if (ctx.message.chat.type === 'private') {
+      next();
+      return;
+    }
+
+    /** Check streaming links exists in message */
+    const urls = this.linksService.findUrlsInMessage(ctx.message.text);
+
+    if (!urls) {
+      next();
+      return;
+    }
+
+    /** Delete user message with streaming link */
+    // @ts-ignore
+    ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
+
+    try {
+      const data = await this.linksService.findLinksByUrls(ctx, urls);
+      await this.linksService.replySearchedSongInfo(ctx, data);
+      await this.linksService.replyFindedLinks(ctx, data);
+    } catch (e) {
+      next();
+      return;
+    }
 
     next();
   }

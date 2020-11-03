@@ -7,7 +7,7 @@ import * as TelegrafI18n from 'telegraf-i18n';
 import { TelegrafMongoSession } from 'telegraf-session-mongodb';
 import { AppModule } from './app.module';
 
-async function bootstrap() {
+const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
@@ -25,7 +25,6 @@ async function bootstrap() {
     credentials: true,
   });
   app.use(
-    // @ts-ignore
     helmet({
       contentSecurityPolicy: false,
     }),
@@ -62,5 +61,6 @@ async function bootstrap() {
   app.use(telegraf.webhookCallback('/telegram-bot-webhook'));
 
   await app.listen(configService.get('app.port'));
-}
+};
+
 bootstrap();

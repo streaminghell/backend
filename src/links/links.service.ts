@@ -33,7 +33,7 @@ export class LinksService {
   }
 
   /* Reply with links to other streaming services */
-  private async replyFindedLinks(ctx: Context, linksByUrl: any) {
+  public async replyFindedLinks(ctx: Context, linksByUrl: any): Promise<void> {
     const linksSorted = sortBy(linksByUrl.links, [link => link.platform]);
 
     const listenLinks = linksSorted.filter(link => {
@@ -74,7 +74,7 @@ export class LinksService {
   }
 
   /* Reply with info about searched song */
-  private async replySearchedSongInfo(ctx: Context, res: any) {
+  public async replySearchedSongInfo(ctx: Context, res: any): Promise<void> {
     const { thumbnailUrl, artistName, title } = res.entity;
 
     if (thumbnailUrl) {
@@ -96,8 +96,8 @@ export class LinksService {
     }
   }
 
-  private songLinksNotFound(ctx) {
-    ctx.reply(ctx.i18n.t('NO_DATA_BY_LINK'));
+  public async songLinksNotFound(ctx: Context): Promise<void> {
+    await ctx.reply(ctx.i18n.t('NO_DATA_BY_LINK'));
   }
 
   public findUrlsInMessage(message: string): string[] {
@@ -105,7 +105,7 @@ export class LinksService {
     return message.match(urlRegExp);
   }
 
-  async findLinksByUrls(ctx, urls: string[]) {
+  async findLinksByUrls(ctx: Context, urls: string[]): Promise<any> {
     /* Get data from OdesliAPI and send message by each link */
     if (urls.length > 0) {
       for (const [_, url] of urls.entries()) {
@@ -114,11 +114,9 @@ export class LinksService {
             url,
             ctx.update.message.from.language_code || 'US',
           );
-          if (!data) this.songLinksNotFound(ctx);
-          await this.replySearchedSongInfo(ctx, data);
-          await this.replyFindedLinks(ctx, data);
+          if (!data) await this.songLinksNotFound(ctx);
+          return data;
         } catch (err) {
-          this.songLinksNotFound(ctx);
           this.logger.error(err.response.data);
         }
       }
@@ -129,7 +127,6 @@ export class LinksService {
     rawUrl: string,
     userCountry: string,
   ): Promise<LinksByUrl> {
-    console.log(rawUrl);
     const url = await this.prepareUrl(rawUrl);
 
     const odesli = await this.odesliService
