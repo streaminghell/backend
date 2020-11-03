@@ -32,6 +32,11 @@ export class LinksService {
     return url;
   }
 
+  public isSupportedLink(url: string): boolean {
+    const regexp = /music\.apple\.com|music\.amazon\.com|amazon\.com|deezer|play\.google\.com|napster|pandora|soundcloud|spotify|tidal|music\.yandex\.ru|youtube\.com|music\.youtube\.com/;
+    return regexp.test(url);
+  }
+
   /* Reply with links to other streaming services */
   public async replyFindedLinks(ctx: Context, linksByUrl: any): Promise<void> {
     const linksSorted = sortBy(linksByUrl.links, [link => link.platform]);

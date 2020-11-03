@@ -41,7 +41,6 @@ export class LinksTelegramUpdate {
       await this.linksService.songLinksNotFound(ctx);
     }
 
-
     next();
   }
 
@@ -60,17 +59,15 @@ export class LinksTelegramUpdate {
       return;
     }
 
-    /** Delete user message with streaming link */
-    // @ts-ignore
-    ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
-
-    try {
-      const data = await this.linksService.findLinksByUrls(ctx, urls);
-      await this.linksService.replySearchedSongInfo(ctx, data);
-      await this.linksService.replyFindedLinks(ctx, data);
-    } catch (e) {
-      next();
-      return;
+    if (this.linksService.isSupportedLink(urls[0])) {
+      try {
+        const data = await this.linksService.findLinksByUrls(ctx, urls);
+        await this.linksService.replySearchedSongInfo(ctx, data);
+        await this.linksService.replyFindedLinks(ctx, data);
+      } catch (e) {
+        next();
+        return;
+      }
     }
 
     next();
