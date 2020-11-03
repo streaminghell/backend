@@ -39,7 +39,6 @@ export class LinksService {
 
   /* Reply with links to other streaming services */
   public async replyFindedLinks(ctx: Context, linksByUrl: any): Promise<void> {
-    console.log(2);
     const linksSorted = sortBy(linksByUrl.links, [link => link.platform]);
 
     const listenLinks = linksSorted.filter(link => {
@@ -81,7 +80,6 @@ export class LinksService {
 
   /* Reply with info about searched song */
   public async replySearchedSongInfo(ctx: Context, res: any): Promise<void> {
-    console.log(1);
     const { thumbnailUrl, artistName, title } = res.entity;
 
     if (thumbnailUrl) {
