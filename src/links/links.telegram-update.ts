@@ -52,23 +52,33 @@ export class LinksTelegramUpdate {
       return;
     }
 
+    console.log(1);
+
     /** Check message text exist in Telegram update */
     if (!ctx.message.text) {
       next();
       return;
     }
 
+    console.log(2);
+
     /** Check streaming links exists in message */
     const urls = this.linksService.findUrlsInMessage(ctx.message.text);
+
+    console.log(3);
 
     if (!urls) {
       next();
       return;
     }
 
+    console.log(4);
+
     if (this.linksService.isSupportedLink(urls[0])) {
+      console.log(5);
       try {
         const data = await this.linksService.findLinksByUrls(ctx, urls);
+        console.log(6);
         await this.linksService.replySearchedSongInfo(ctx, data);
         await this.linksService.replyFindedLinks(ctx, data);
       } catch (e) {
