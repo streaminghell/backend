@@ -4,13 +4,20 @@ import { OdesliModule } from '../providers/odesli/odesli.module';
 import { ShazamModule } from '../providers/shazam/shazam.module';
 import { VkModule } from '../providers/vk/vk.module';
 import { LinksService } from './links.service';
+import { LoggerModule } from 'nestjs-pino';
 
 describe('LinksService', () => {
   let service: LinksService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule, OdesliModule, ShazamModule, VkModule],
+      imports: [
+        LoggerModule.forRoot(),
+        ConfigModule,
+        OdesliModule,
+        ShazamModule,
+        VkModule,
+      ],
       providers: [LinksService],
     }).compile();
 
