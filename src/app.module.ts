@@ -46,16 +46,16 @@ import { LoggerModule } from 'nestjs-pino';
         configService.get('mongooseModule'),
       inject: [ConfigService],
     }),
-    TelegrafModule.forRootAsync({
-      useFactory: (configService: ConfigService) =>
-        configService.get('telegrafModule'),
-      inject: [ConfigService],
-    }),
+    // TelegrafModule.forRootAsync({
+    //   useFactory: (configService: ConfigService) =>
+    //     configService.get('telegrafModule'),
+    //   inject: [ConfigService],
+    // }),
     AuthModule,
     UsersModule,
     LinksModule,
-    StartModule,
-    ServicesModule,
+    // StartModule,
+    // ServicesModule,
   ],
 })
 export class AppModule {}

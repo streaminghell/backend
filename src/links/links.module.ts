@@ -10,6 +10,10 @@ import { LinksTelegramUpdate } from './links.telegram-update';
 @Module({
   imports: [OdesliModule, ShazamModule, VkModule],
   controllers: [LinksController],
-  providers: [LinksService, LinksResolver, LinksTelegramUpdate],
+  providers: [
+    LinksService,
+    LinksResolver,
+    // LinksTelegramUpdate
+  ],
 })
 export class LinksModule {}

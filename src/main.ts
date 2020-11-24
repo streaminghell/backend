@@ -20,10 +20,10 @@ appInsights.defaultClient.commonProperties = {
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { resolve } from 'path';
+// import { resolve } from 'path';
 import * as helmet from 'helmet';
-import * as TelegrafI18n from 'telegraf-i18n';
-import { TelegrafMongoSession } from 'telegraf-session-mongodb';
+// import * as TelegrafI18n from 'telegraf-i18n';
+// import { TelegrafMongoSession } from 'telegraf-session-mongodb';
 import { AppModule } from './app.module';
 
 const bootstrap = async () => {
@@ -32,7 +32,7 @@ const bootstrap = async () => {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-  const telegraf = app.get('TelegrafProvider');
+  // const telegraf = app.get('TelegrafProvider');
   const configService = app.get('ConfigService');
 
   app.enableCors({
@@ -63,22 +63,22 @@ const bootstrap = async () => {
   SwaggerModule.setup('api/v1', app, document);
 
   // Telegraf session storage
-  await TelegrafMongoSession.setup(telegraf, configService.get('MONGODB_URI'), {
-    collectionName: 'telegrafSessions',
-    sessionName: 'session',
-  });
+  // await TelegrafMongoSession.setup(telegraf, configService.get('MONGODB_URI'), {
+  //   collectionName: 'telegrafSessions',
+  //   sessionName: 'session',
+  // });
 
   // Telegraf i18n instance
   // @ts-ignore
-  const i18n = new TelegrafI18n({
-    defaultLanguage: 'en',
-    allowMissing: false,
-    sessionName: 'session',
-    useSession: true,
-    directory: resolve(__dirname, 'core/i18n'),
-  });
-  telegraf.use(i18n.middleware());
-  app.use(telegraf.webhookCallback('/telegram-bot-webhook'));
+  // const i18n = new TelegrafI18n({
+  //   defaultLanguage: 'en',
+  //   allowMissing: false,
+  //   sessionName: 'session',
+  //   useSession: true,
+  //   directory: resolve(__dirname, 'core/i18n'),
+  // });
+  // telegraf.use(i18n.middleware());
+  // app.use(telegraf.webhookCallback('/telegram-bot-webhook'));
 
   await app.listen(configService.get('app.port')).then(() => {
     const bootstrapEndTime = Date.now() - bootstrapStartTime;
